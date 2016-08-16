@@ -30,11 +30,10 @@ After you install the gem, add this to your Rakefile to use it:
 ```ruby
 require 'test/this'
 
-# These are the default configuration values.
-Test::This.tap do |config|
+Test::This.configure do |config|
   config.file_suffix = '_test.rb'
   config.test_method_prefix = 'test_'
-  config.test_path = File.join(Dir.pwd, 'test')
+  config.test_path = File.expand_path('../test', __FILE__)
 end
 ```
 

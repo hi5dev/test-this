@@ -2,7 +2,7 @@ require 'bundler/gem_tasks'
 require 'rake/testtask'
 require 'test/this'
 
-Test::This.tap do |config|
+Test::This.configure do |config|
   config.file_suffix = '_test.rb'
   config.test_method_prefix = 'test_'
   config.test_path = File.expand_path('../test', __FILE__)

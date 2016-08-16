@@ -25,6 +25,8 @@ module Test
 
     class << self
       attr_accessor :file_suffix, :test_method_prefix, :test_path
+
+      alias_method :configure, :tap
     end
 
     def self.file_suffix
