@@ -50,6 +50,8 @@ module Test
     end
 
     def self.get_test_name(name)
+      return if "#{name}".empty?
+
       case suite
       when :rails then name
       when :minitest then "#{minitest_method_prefix}#{name.gsub(' ', '_')}"
