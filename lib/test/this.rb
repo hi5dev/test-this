@@ -24,7 +24,7 @@ module Test
     autoload :VERSION, 'test/this/version'
 
     class << self
-      attr_accessor :file_suffix, :test_method_prefix, :test_path
+      attr_writer :file_suffix, :test_method_prefix, :test_path
 
       alias_method :configure, :tap
     end
