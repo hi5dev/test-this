@@ -1,8 +1,14 @@
 # Test::This
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/test/this`. To experiment with that code, run `bin/console` for an interactive prompt.
+Often I want to run just one test in a class full of other tests. I usually
+end up just commenting out everything except for the one test I want to run,
+but that's kind of lame, so I decided to write a Rake test that lets me do
+this instead:
 
-TODO: Delete this and the text above, and describe your gem
+    $ rake test:this["models/the_model","this is the test"]
+
+This works for both Rails and Minitest. See the installation below for
+instructions on how to configure it.
 
 ## Installation
 
@@ -20,22 +26,59 @@ Or install it yourself as:
 
     $ gem install test-this
 
+After you install the gem, add this to your Rakefile to use it:
+
+```ruby
+require 'test/this'
+
+# These are the default configuration values.
+Test::This.tap do |config|
+  config.file_suffix = '_test.rb'
+  config.minitest_method_prefix = 'test_'
+  config.suite = :rails # or :minitest
+  config.test_path = File.join(Dir.pwd, 'test')
+end
+```
+
 ## Usage
 
-TODO: Write usage instructions here
+To run a single test from a class full of other tests you don't want to run:
 
-## Development
+    $ rake test:this["controllers/this_controller","the name of the test"]
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+To test all of the tests in a class full of tests you want to run:
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+    $ rake test:this["controllers/this_controller"]
+
+Note that you can leave off the trailing `_test.rb` in the name of the test and
+the prefixed `test_` in the name of the test methods for minitest. For example,
+if your Minitest case looked like this:
+
+```ruby
+# file: test/some_test.rb
+class SomeTest < Minitest::Test
+  def test_the_test_to_run
+    assert true
+  end
+
+  def test_not_the_test_to_run
+    fail
+  end
+end
+```
+
+To run the `test_the_test_to_run`:
+
+    $ rake test:this["some_test","the test to run"]
+
+In MiniTest mode it will automatically convert the spaces to underscores.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/test-this.
-
+Bug reports and pull requests are welcome on GitHub at
+[hi5dev/test-this](https://github.com/hi5dev/test-this).
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
+The gem is available as open source under the terms of the
+[MIT License](http://opensource.org/licenses/MIT).
