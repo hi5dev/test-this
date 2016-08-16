@@ -1,6 +1,6 @@
 namespace :test do
   desc 'Run one test by name'
-  task :one, [:path, :test_name] do |t, args|
+  task :this, [:path, :test_name] do |t, args|
     # run the test if at least one of the arguments is present
     Test::This.execute(*args) if args.length > 0
 
