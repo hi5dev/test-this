@@ -3,8 +3,23 @@ require 'test/this/task'
 
 module Test
   # @!attribute file_suffix
+  #   Test files are typically suffixed with either `_test.rb` or `_spec.rb`.
+  #   This attribute allows you to specify what file suffix your tests use.
+  #
+  #   @return [String] A file suffix - defaults to "_test.rb".
+  #
   # @!attribute test_method_prefix
+  #   Minitest methods are prefixed with `test_`. The Rails `test` method
+  #   generates tests for Minitest that have the same prefix. This might not
+  #   apply to all test suites, so it can be configured when necessary.
+  #
+  #   @return [String] Prefix for test methods.
+  #
   # @!attribute test_path
+  #   The full path to the root of the tests. This defaults to using the
+  #   current directory that the task was called from.
+  #
+  #   @return [String] Full path to the tests.
   module This
     autoload :VERSION, 'test/this/version'
 
