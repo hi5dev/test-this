@@ -7,8 +7,7 @@ this instead:
 
     $ rake test:this["models/the_model","this is the test"]
 
-This works for both Rails and Minitest. See the installation below for
-instructions on how to configure it.
+This works for both Rails and Minitest.
 
 ## Installation
 
@@ -34,8 +33,7 @@ require 'test/this'
 # These are the default configuration values.
 Test::This.tap do |config|
   config.file_suffix = '_test.rb'
-  config.minitest_method_prefix = 'test_'
-  config.suite = :rails # or :minitest
+  config.test_method_prefix = 'test_'
   config.test_path = File.join(Dir.pwd, 'test')
 end
 ```

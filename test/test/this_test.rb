@@ -3,20 +3,17 @@ require 'test_helper'
 class Test::ThisTest < Minitest::Test
   def setup
     @file_suffix = Test::This.file_suffix
-    @minitest_method_prefix = Test::This.minitest_method_prefix
-    @suite = Test::This.suite
+    @test_method_prefix = Test::This.test_method_prefix
     @test_path = Test::This.test_path
 
     Test::This.instance_variable_set(:@file_suffix, nil)
-    Test::This.instance_variable_set(:@minitest_method_prefix, nil)
-    Test::This.instance_variable_set(:@suite, nil)
+    Test::This.instance_variable_set(:@test_method_prefix, nil)
     Test::This.instance_variable_set(:@test_path, nil)
   end
 
   def teardown
     Test::This.file_suffix = @file_suffix
-    Test::This.minitest_method_prefix = @minitest_method_prefix
-    Test::This.suite = @suite
+    Test::This.test_method_prefix = @test_method_prefix
     Test::This.test_path = @test_path
   end
 
@@ -28,21 +25,27 @@ class Test::ThisTest < Minitest::Test
     assert_equal '_test.rb', Test::This.file_suffix
   end
 
-  def test_default_minitest_method_prefix
-    assert_equal 'test_', Test::This.minitest_method_prefix
-  end
-
-  def test_default_suite
-    assert_equal :rails, Test::This.suite
+  def test_default_test_method_prefix
+    assert_equal 'test_', Test::This.test_method_prefix
   end
 
   def test_default_test_path
-    test_path = File.expand_path('../../../test', __FILE__)
-
-    assert_equal test_path, Test::This.test_path
+    assert_equal File.join(root_path, 'test'), Test::This.test_path
   end
 
-  def test_suite_cannot_be_invalid_value
-    assert_raises(ArgumentError) { Test::This.suite = :unknown_suite }
+  def test_get_test_path
+    Test::This.file_suffix = '_spec.rb'
+    expected_path = File.join(root_path, 'test', 'hello', 'world_spec.rb')
+    assert_equal expected_path, Test::This.get_test_path('hello/world')
+  end
+
+  def test_get_test_name
+    assert_equal 'test_this_method', Test::This.get_test_name('this method')
+  end
+
+  private
+
+  def root_path
+    @root_path ||= File.expand_path('../../../', __FILE__)
   end
 end
