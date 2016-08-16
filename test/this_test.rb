@@ -46,6 +46,6 @@ class Test::ThisTest < Minitest::Test
   private
 
   def root_path
-    @root_path ||= File.expand_path('../../../', __FILE__)
+    @root_path ||= File.expand_path('../../', __FILE__)
   end
 end
