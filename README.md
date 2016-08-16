@@ -51,12 +51,12 @@ To test all of the tests in a class full of tests you want to run:
     $ rake test:this["controllers/this_controller"]
 
 Note that you can leave off the trailing `_test.rb` in the name of the test and
-the prefixed `test_` in the name of the test methods for minitest. For example,
+the prefixed `test_` in the name of the test methods for Minitest. For example,
 if your Minitest case looked like this:
 
 ```ruby
-# file: test/some_test.rb
-class SomeTest < Minitest::Test
+# file: test/something_test.rb
+class SomethingTest < Minitest::Test
   def test_the_test_to_run
     assert true
   end
@@ -69,9 +69,9 @@ end
 
 To run the `test_the_test_to_run`:
 
-    $ rake test:this["some_test","the test to run"]
+    $ rake test:this["something","the test to run"]
 
-In MiniTest mode it will automatically convert the spaces to underscores.
+In Minitest mode it will automatically convert the spaces to underscores.
 
 ## Contributing
 
