@@ -29,6 +29,7 @@ class ExecuteTest < Minitest::Test
         alias_method :system, :real_system
 
         remove_method :capture_command
+        remove_method :real_system
       end
     end
   end
