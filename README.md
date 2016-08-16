@@ -69,7 +69,7 @@ To run the `test_the_test_to_run`:
 
     $ rake test:this["something","the test to run"]
 
-In Minitest mode it will automatically convert the spaces to underscores.
+Spaces will automatically be converted to underscores.
 
 ## Contributing
 
