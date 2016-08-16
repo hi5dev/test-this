@@ -9,7 +9,9 @@ module Test
   module This
     autoload :VERSION, 'test/this/version'
 
-    attr_accessor :file_suffix, :minitest_method_prefix, :test_path
+    class << self
+      attr_accessor :file_suffix, :minitest_method_prefix, :test_path
+    end
 
     def self.file_suffix
       @file_suffix ||= '_test.rb'
@@ -40,7 +42,7 @@ module Test
       command = %Q[ruby -I"lib:test" #{path}]
       command << " -n #{name}" unless name.nil?
 
-      system command(path, name)
+      system command
     end
 
     def self.get_test_path(path)

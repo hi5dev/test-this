@@ -2,6 +2,13 @@ require 'bundler/gem_tasks'
 require 'rake/testtask'
 require 'test/this'
 
+Test::This.tap do |config|
+  config.file_suffix = '_test.rb'
+  config.minitest_method_prefix = 'test_'
+  config.suite = :minitest
+  config.test_path = File.join(Dir.pwd, 'test')
+end
+
 Rake::TestTask.new(:test) do |t|
   t.libs << 'test'
   t.libs << 'lib'
